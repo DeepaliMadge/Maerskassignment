@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="./style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="main" id="content">
+                <div class="subDivOne"> <span> 1</span> </div>
+                <div class="subDivFour"> <span> 2</span></div>
+                <div class="subDivThree"> <span> 3</span></div>
+                <div class="subDivTwo"> <span> 4</span></div>
+                <div class="subDivFive"> <span> 5</span></div>
+                <div class="subDivSix"> <span> 6</span></div>
+                <div class="subDivSeven"> <span> 7</span></div>
+                <div class="subDivEight"> <span> 8</span></div>
+                <div class="subDivNine"> <span> 9</span></div>
+        </div>
+        <div class="btn-container">
+            <button type="button" class="btn-select"> Shuffle</button>
+            <button type="button" class="btn-select" onclick="sortList()"> Sort</button>
+        </div>
+
+
+    </div>
+    <i> Shuffle and sort by Deepali Harish Madge </i>
+
+    <script>
+        function sortList() {
+            console.log('click')
+            var list, i, switching, b, shouldSwitch;
+            list = document.getElementById("content");
+            switching = true;
+            /* Make a loop that will continue until
+            no switching has been done: */
+            while (switching) {
+                // Start by saying: no switching is done:
+                switching = false;
+                b = list.getElementsByTagName("DIV");
+                // Loop through all list items:
+                for (i = 0; i < (b.length - 1); i++) {
+                    // Start by saying there should be no switching:
+                    shouldSwitch = false;
+                    /* Check if the next item should
+                    switch place with the current item: */
+                    if (b[i].innerHTML.toLowerCase() > b[i + 1].innerHTML.toLowerCase()) {
+                        /* If next item is alphabetically lower than current item,
+                        mark as a switch and break the loop: */
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                if (shouldSwitch) {
+                    /* If a switch has been marked, make the switch
+                    and mark the switch as done: */
+                    b[i].parentNode.insertBefore(b[i + 1], b[i]);
+                    switching = true;
+                }
+            }
+        }
+
+
+        function shuffle(elems) {
+ 
+ allElems = (function(){
+ var ret = [], l = elems.length;
+ while (l--) { ret[ret.length] = elems[l]; }
+ return ret;
+ })();
+
+ var shuffled = (function(){
+     var l = allElems.length, ret = [];
+     while (l--) {
+         var random = Math.floor(Math.random() * allElems.length),
+             randEl = allElems[random].cloneNode(true);
+         allElems.splice(random, 1);
+         ret[ret.length] = randEl;
+     }
+     return ret; 
+ })(), l = elems.length;
+
+ while (l--) {
+     elems[l].parentNode.insertBefore(shuffled[l], elems[l].nextSibling);
+     elems[l].parentNode.removeChild(elems[l]);
+ }
+
+}
+
+var button = document.querySelector('button');
+button.addEventListener('click', function() { shuffle( document.querySelectorAll('#content > div') ) }, false);
+
+    </script>
+
+</body>
+
+</html>
